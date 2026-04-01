@@ -18,8 +18,13 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+  max-width: 350px;
+  margin: auto;
+}
       gap: 20px;
       padding: 20px;
       max-width: 320px;
@@ -80,6 +85,16 @@
   <div class="mood" onclick="show('Sit quietly for 2 minutes','#dcfce7','😌')">😌</div>
   <div class="mood" onclick="show('Do 10 jumping jacks','#fef3c7','🤩')">🤩</div>
   <div class="mood" onclick="show('Go for a short walk','#fecaca','😡')">😡</div>
+
+  <div class="mood" onclick="show('Listen to music','#ede9fe','🎧')">🎧</div>
+  <div class="mood" onclick="show('Talk to a friend','#fce7f3','💬')">💬</div>
+  <div class="mood" onclick="show('Write your thoughts','#f0fdf4','✍️')">✍️</div>
+  <div class="mood" onclick="show('Stretch your body','#ecfeff','🧘')">🧘</div>
+  <div class="mood" onclick="show('Take a short nap','#e0e7ff','😪')">😪</div>
+  <div class="mood" onclick="show('Watch something fun','#fff7ed','😂')">😂</div>
+  <div class="mood" onclick="show('Drink tea or coffee','#fef9c3','☕')">☕</div>
+  <div class="mood" onclick="show('Go outside for fresh air','#ecfccb','🌿')">🌿</div>
+  <div class="mood" onclick="show('Celebrate your win','#fdf2f8','🎉')">🎉</div>
 </div>
 
 <div id="result"></div>
