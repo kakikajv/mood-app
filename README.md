@@ -1,5 +1,4 @@
 # mood-app
-My first app
 index.html
 <!DOCTYPE html>
 <html>
