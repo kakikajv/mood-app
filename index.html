@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mood App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+      text-align: center;
+      transition: background 0.5s ease;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 320px;
+      margin: auto;
+    }
+
+    /* 🔥 Glass effect */
+    .mood {
+      font-size: 40px;
+      padding: 25px;
+      border-radius: 20px;
+      cursor: pointer;
+
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mood:active {
+      transform: scale(0.9);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 15px;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #history {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>How do you feel?</h2>
+
+<div class="grid">
+  <div class="mood" onclick="show('Take a 5-minute rest','#dbeafe','😴')">😴</div>
+  <div class="mood" onclick="show('Drink water','#fee2e2','😞')">😞</div>
+  <div class="mood" onclick="show('Take deep breaths','#e0f2fe','😵')">😵</div>
+  <div class="mood" onclick="show('Sit quietly for 2 minutes','#dcfce7','😌')">😌</div>
+  <div class="mood" onclick="show('Do 10 jumping jacks','#fef3c7','🤩')">🤩</div>
+  <div class="mood" onclick="show('Go for a short walk','#fecaca','😡')">😡</div>
+</div>
+
+<div id="result"></div>
+
+<button onclick="randomAction()">🎲 Random Action</button>
+<br>
+<button onclick="done()">✅ Done</button>
+
+<div id="history"></div>
+
+<script>
+const actions = [
+  "Take a 5-minute rest",
+  "Drink water",
+  "Take deep breaths",
+  "Go for a short walk",
+  "Do 10 jumping jacks",
+  "Stretch your body"
+];
+
+// 📳 vibration
+function vibrate() {
+  if (navigator.vibrate) {
+    navigator.vibrate(50);
+  }
+}
+
+// 🎬 show result + save history
+function show(text, color, emoji) {
+  let result = document.getElementById("result");
+
+  vibrate();
+
+  result.style.opacity = 0;
+
+  setTimeout(() => {
+    result.innerText = text;
+    result.style.opacity = 1;
+  }, 100);
+
+  document.body.style.background = color;
+
+  saveHistory(emoji, text);
+}
+
+// 🎲 random action
+function randomAction() {
+  let result = document.getElementById("result");
+  let random = actions[Math.floor(Math.random() * actions.length)];
+
+  vibrate();
+
+  result.style.opacity = 0;
+
+  setTimeout(() => {
+    result.innerText = random;
+    result.style.opacity = 1;
+  }, 100);
+}
+
+// ✅ done
+function done() {
+  vibrate();
+  document.getElementById("result").innerText = "Nice. That's enough for now ✨";
+}
+
+// 💾 save history
+function saveHistory(emoji, text) {
+  let history = JSON.parse(localStorage.getItem("moodHistory")) || [];
+
+  history.unshift(emoji + " - " + text);
+
+  localStorage.setItem("moodHistory", JSON.stringify(history));
+
+  displayHistory();
+}
+
+// 📊 display history
+function displayHistory() {
+  let history = JSON.parse(localStorage.getItem("moodHistory")) || [];
+  let historyDiv = document.getElementById("history");
+
+  historyDiv.innerHTML = "<b>Recent:</b><br>" + history.slice(0,5).join("<br>");
+}
+
+// load history on start
+displayHistory();
+
+</script>
+
+</body>
+</html>
