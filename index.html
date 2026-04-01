@@ -25,19 +25,27 @@
     }
 
     .mood {
-      font-size: 40px;
-      padding: 25px;
-      background: white;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+  font-size: 40px;
+  padding: 25px;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mood:active {
+  transform: scale(0.9);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
     #result {
-      margin-top: 20px;
-      font-size: 22px;
-      font-weight: bold;
-    }
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
     button {
       padding: 10px 20px;
@@ -78,13 +86,28 @@ const actions = [
 ];
 
 function show(text, color) {
-  document.getElementById("result").innerText = text;
+  let result = document.getElementById("result");
+
+  result.style.opacity = 0;
+
+  setTimeout(() => {
+    result.innerText = text;
+    result.style.opacity = 1;
+  }, 100);
+
   document.body.style.background = color;
 }
 
 function randomAction() {
+  let result = document.getElementById("result");
   let random = actions[Math.floor(Math.random() * actions.length)];
-  document.getElementById("result").innerText = random;
+
+  result.style.opacity = 0;
+
+  setTimeout(() => {
+    result.innerText = random;
+    result.style.opacity = 1;
+  }, 100);
 }
 
 function done() {
